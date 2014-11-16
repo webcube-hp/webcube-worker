@@ -73,31 +73,31 @@ fs.unlink(path1, function () {
           c.write(buf);
           break;
         case 1:
-          var buf = new Buffer([players[0].a]);
+          var buf = new Buffer([players[0].b]);
           c.write(buf);
           break;
         case 2:
-          var buf = new Buffer([players[0].a]);
+          var buf = new Buffer([players[0].x]);
           c.write(buf);
           break;
         case 3:
-          var buf = new Buffer([players[0].a]);
+          var buf = new Buffer([players[0].r]);
           c.write(buf);
           break;
         case 4:
-          var buf = new Buffer([players[0].a]);
+          var buf = new Buffer([players[0].z]);
           c.write(buf);
           break;
         case 5:
-          var buf = new Buffer([players[0].a]);
+          var buf = new Buffer([players[0].start]);
           c.write(buf);
           break;
         case 6:
-          var buf = new Buffer([players[0].a]);
+          var buf = new Buffer([players[0].x]);
           c.write(buf);
           break;
         case 7:
-          var buf = new Buffer([players[0].a]);
+          var buf = new Buffer([players[0].y]);
           c.write(buf);
           break;
       }
