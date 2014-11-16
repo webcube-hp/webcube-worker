@@ -8,6 +8,7 @@ var ip;
 var socketio = {};
 var unixSock = [];
 
+
 var players = [];
 players[0] = {
   a: 0,
@@ -66,43 +67,47 @@ fs.unlink(path1, function () {
       console.log('server disconnected');
     });
     c.on('data', function(data) {
-      console.log('got data')
-      switch (data) {
-        case 0:
-          var buf = new Buffer([players[0].a]);
-          c.write(buf);
-          break;
-        case 1:
-          var buf = new Buffer([players[0].b]);
-          c.write(buf);
-          break;
-        case 2:
-          var buf = new Buffer([players[0].x]);
-          c.write(buf);
-          break;
-        case 3:
-          var buf = new Buffer([players[0].r]);
-          c.write(buf);
-          break;
-        case 4:
-          var buf = new Buffer([players[0].z]);
-          c.write(buf);
-          break;
-        case 5:
-          var buf = new Buffer([players[0].start]);
-          c.write(buf);
-          break;
-        case 6:
-          var buf = new Buffer([players[0].x]);
-          c.write(buf);
-          break;
-        case 7:
-          var buf = new Buffer([players[0].y]);
-          c.write(buf);
-          break;
+      d = data.toString().split('');
+      for(var i = 0; i < d.length; i++) {
+          console.log('got data: ' + d[i])
+
+          switch (d[i]) {
+            case "0":
+              var buf = new Buffer([players[0].a]);
+              c.write(buf);
+              break;
+            case "1":
+              var buf = new Buffer([players[0].b]);
+              c.write(buf);
+              break;
+            case "2":
+              var buf = new Buffer([players[0].x]);
+              c.write(buf);
+              break;
+            case "3":
+              var buf = new Buffer([players[0].r]);
+              c.write(buf);
+              break;
+            case "4":
+              var buf = new Buffer([players[0].z]);
+              c.write(buf);
+              break;
+            case "5":
+              var buf = new Buffer([players[0].start]);
+              c.write(buf);
+              break;
+            case "6":
+              var buf = new Buffer([-Math.round(players[0].joystick.x)]);
+              c.write(buf);
+              break;
+            case "7":
+              var buf = new Buffer([Math.round(players[0].joystick.y)]);          
+              c.write(buf);
+              break;
+          }
       }
+      
     })
-    c.write('hello\r\n');
   });
   server.listen(path1, function() {
     console.log('server bound on %s', path1);
