@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    block content
+  script.
+    window.webHpCode = #{code};
+  script(src="bower_components/jquery/dist/jquery.min.js")
+  script(src="/socket.io/socket.io.js")
+  script(src="/javascripts/socketScript.js")
+  script(src="//localhost:35729/livereload.js")
