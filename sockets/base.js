@@ -7,6 +7,24 @@ var code;
 var socketio = {};
 var unixSock = [];
 
+var player1 = {
+  action: 0,
+}
+
+var path1 = '/tmp/p1.sock'
+fs.unlink(path1, function () {
+  var server = net.createServer(function(c) {
+    console.log('server connected');
+    c.on('end', function() {
+      console.log('server disconnected');
+    });
+    c.write('hello\r\n');
+  });
+  server.listen(path1, function() {
+    console.log('server bound on %s', path1);
+  });
+});
+
 // unixSock[0] = new net.Socket();
 // unixSock[1] = new net.Socket();
 // unixSock[2] = new net.Socket();
@@ -47,9 +65,10 @@ module.exports = function(io) {
     })
 
     socket.on('action', function(data) {
-      console.log('test');
-      var c = socketio[socket.id];
-      c.write('lalalala');
+      player1.action = '1';
+      // console.log('test');
+      // var c = socketio[socket.id];
+      // c.write('lalalala');
     })
 
     socket.on('disconnect', function() {
