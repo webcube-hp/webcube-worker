@@ -188,9 +188,10 @@ module.exports = function(io) {
     // })
 
     socket.on('disconnect', function() {
+      console.log('disconnected', playerCount);
       playerCount--;
-      if (playerCount == 0) {
-        request('http://theotherserver.com/ended?code=' + code + '&ip=' + ip, function(err, request, body) {
+      if (playerCount == 1) {
+        request('http://localhost:3000/ended?code=' + code + '&ip=' + ip, function(err, request, body) {
           if (err) {
             console.log("Error: something is wrong: ", err);
           }

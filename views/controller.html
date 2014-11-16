@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="viewport" content="user-scalable=0">
 <style type="text/css">
+
 body {
   margin: 5%;
   background: #502090;
@@ -150,9 +151,13 @@ html,body {
 <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
+  
   var socket = io.connect(window.location.host);
   $(function(){
   // $("#left").wind
+    $.get("/start_game", {}, function() {
+      console.log('started');
+    })
     function downHandler( event ){
         console.log("down bam")
           socket.emit('button down', {"button": $( event.target ).attr('id')})

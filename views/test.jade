@@ -1,1 +1,26 @@
-include controller.html
+html(lang='en')
+  head
+    title Controller
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    meta(name='viewport', content='user-scalable=0')
+    link(rel='stylesheet', type='text/css', href='/stylesheets/curran.css')
+    meta(name='viewport', content='width=device-width, user-scalable=no')
+    script(src="bower_components/jquery/dist/jquery.min.js")
+    script(src="/socket.io/socket.io.js")
+    script.
+      window.webHpCode = #{code};
+  body
+    #left
+        #hit-area
+            #bounding-box
+              #joystick
+    #right
+      #top
+        #x.button X
+        #r.button R
+      #a.button A
+      #b.button B
+    #center
+      #z.button Z
+      #start.button START
+    script(src="/javascripts/curranscript.js")

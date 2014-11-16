@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 					'views/**/*.jade',
 					'.rebooted'
 				],
-				options: { livereload: true }
+				options: { livereload: false }
 			}
 		},
 		nodemon: {
@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 				script: './bin/www',
 				options: {
 					env: {
-						PORT: 3000,
+						PORT: 5000,
 						NODE_ENV: 'development'
 					},
 					watch: ['.'],
