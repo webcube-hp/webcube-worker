@@ -182,10 +182,10 @@ html,body {
         event.preventDefault();
       };
 
-      function joyUpHandler( event )
-        socket.emit('input', {"button": "joystick", "event": {"x":0, "y":0}});
-        event.preventDefault();
-      };
+    function joyUpHandler( event ){
+        socket.emit('button joystick', {"x": 0, "y": 0});
+      event.preventDefault();
+    };
       // $('body').bind('touchend', function(e){
       //   socket.emit('input', {"x": 0, "y": 0});
       //   e.preventDefault();
