@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Controller</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="viewport" content="user-scalable=0">
+<style type="text/css">
+body {
+  margin: 5%;
+  background: #502090;
+  text-align: center;
+  font-size: 3.7vw;
+}
+html,body {
+  height:100%;
+  color:white;
+}
+#left {
+  width: 35%;
+  height: 90%;
+  float: left;
+}
+#center {
+  width: 15%;
+  height: 90%;
+  margin-right: 7.5%;
+  float: right;
+}
+#right {
+  width: 35%;
+  height: 90%;
+  float: right;
+}
+#hit-area {
+  width: 100%;
+  height: 90%;
+  margin:0, 0;
+  padding:0;
+}
+#bounding-box {
+  margin-top: 2%;
+  margin-bottom: 5%;
+  width: 35%;
+    height:0;
+    padding-bottom: 35%%;
+  border-radius: 50%;
+  background-color: #333;
+  position: absolute;
+}
+#joystick {
+  margin-top: 35%%;
+  margin-left: 35%;
+  width: 30%;
+    height:0;
+    padding-bottom: 30%;
+  border-radius: 50%;
+  background: #DEDEDE;
+}
+#z {
+  width: 100%;
+  height: 15%;
+  margin-bottom: 60%;
+  padding-top: 5%;
+  background: #0033C3;
+}
+#start {
+  width: 100%;
+  height: 15%;
+  margin-top:20%;
+  background: grey;
+}
+#top {
+  width: 100%;
+  height: 15%;
+  margin-bottom: 5%;
+}
+#x {
+  width: 42.5%;
+  height: 100%;
+  float: left;
+  background: #D0D0D0;
+}
+#r {  
+  width: 42.5%;
+  height: 100%;
+  float: right;
+  background: #D0D0D0;
+}
+#a {
+  width: 100%;
+  height: 35%;
+  margin-bottom: 5%;
+  margin:50%, auto;
+  background: #00ADA4;
+}
+#b {
+  width: 100%;
+  height: 35%;
+  background: #FF0000;
+}
+.pressed {
+   box-shadow: inset 0 0 0 1px #27496d, inset 0 5px 30px #193047; /*CHANGE COLORS*/
+}
+</style>
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+
+</head>
+<body>
+
+<div id="left">
+
+  <div id="hit-area">
+
+    <div id="bounding-box">
+
+      <div id="joystick">
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div id="right">
+
+<div id="top">
+
+<div id="x" class="button">X</div>
+
+<div id="r" class="button">R</div>
+
+</div>
+
+<div id="a" class="button">A</div>
+
+<div id="b" class="button">B</div>
+
+</div>
+
+<div id="center">
+
+<div id="z" class="button">Z</div>
+<div id="start" class="button">START</div>
+
+</div>
+
+<script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+  var socket = io.connect(window.location.host);
+  $(function(){
+  // $("#left").wind
+    function downHandler( event ){
+        console.log("down bam")
+          socket.emit('button down', {"button": $( event.target ).attr('id')})
+          //$( event.target ).addClass( "pressed" )
+      };
+    function upHandler( event ){
+        console.log("up bam")
+          socket.emit('button up', {"button": $( event.target ).attr('id')})
+          //$( event.target ).removeClass( "pressed" );
+      };
+    function joyHandler( event ){
+       console.log("joys bam")
+       console.log(event);
+      var touch = event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
+      var hitWidth = $("#hit-area").width();
+      var hitHeight = $("#hit-area").height();
+      console.log("width: " +hitWidth+ "height: " + hitHeight);
+      //console.log("x: " +event.offsetX+ "y: " + event.offsetY);
+        var x = (touch.clientX - hitWidth/2)/(hitWidth/2);
+        var y = -(touch.clientY - hitHeight/2)/(hitHeight/2);
+        if(x < -1) x = -1;
+      else if(x > 1) x = 1;
+        if(y < -1) y = -1;
+        else if(y > 1) y = 1;
+        console.log("x: " +x+ "y: " + y);
+        socket.emit('button joystick', {"x": x, "y": y});
+        event.preventDefault();
+      };
+      // $('body').bind('touchend', function(e){
+      //   socket.emit('input', {"x": 0, "y": 0});
+      //   e.preventDefault();
+      // });
+    $( ".button" ).on( "touchstart", downHandler );
+    $( ".button" ).on( "touchend", upHandler);
+    $( "#hit-area").on( "touchmove", joyHandler);
+  });
+</script>
+</body>
+</html>
