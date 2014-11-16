@@ -181,6 +181,11 @@ html,body {
         socket.emit('button joystick', {"x": x, "y": y});
         event.preventDefault();
       };
+
+      function joyUpHandler( event )
+        socket.emit('input', {"button": "joystick", "event": {"x":0, "y":0}});
+        event.preventDefault();
+      };
       // $('body').bind('touchend', function(e){
       //   socket.emit('input', {"x": 0, "y": 0});
       //   e.preventDefault();
@@ -188,6 +193,7 @@ html,body {
     $( ".button" ).on( "touchstart", downHandler );
     $( ".button" ).on( "touchend", upHandler);
     $( "#hit-area").on( "touchmove", joyHandler);
+    $( "#hit-area").on( "touchend", joyUpHandler);
   });
 </script>
 </body>
