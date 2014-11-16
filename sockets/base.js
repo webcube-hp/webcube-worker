@@ -97,11 +97,28 @@ fs.unlink(path1, function () {
               c.write(buf);
               break;
             case "6":
-              var buf = new Buffer([-Math.round(players[0].joystick.x)]);
+              var buf = new Buffer(8)
+              // buf.fill(-players[0].joystick.x);
+
+              var buf = new Buffer([Math.round(-players[0].joystick.x)]);
               c.write(buf);
               break;
             case "7":
-              var buf = new Buffer([Math.round(players[0].joystick.y)]);          
+              var buf = new Buffer(8)
+              // buf.fill(players[0].joystick.x);
+              var buf = new Buffer([Math.round(players[0].joystick.x)]);
+              c.write(buf);
+              break;
+            case "8":
+              var buf = new Buffer(8)
+              // buf.fill(-players[0].joystick.y);
+              var buf = new Buffer([Math.round(-players[0].joystick.y)]);
+              c.write(buf);
+              break;
+            case "9":
+              var buf = new Buffer(8)
+              // buf.fill(players[0].joystick.y);
+              var buf = new Buffer([Math.round(players[0].joystick.y)]);
               c.write(buf);
               break;
           }
